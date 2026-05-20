@@ -2,7 +2,7 @@
 
 This guide shows how to configure Mihomo's TUN mode and DNS resolver in macOS to prevent leaks and route Apple services directly, avoiding breakage.
 
-It will intercept all DNS system-wide (no exceptions) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
+It will intercept all DNS system-wide (only exceptions will be some system services using Akamai encrypted DNS, such as mDNSResponder) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
 
 The recommended way to manage Mihomo is via Homebrew and its default config folder. In case you don't have it installed yet (requires a working Homebrew installation):
 ```
@@ -20,7 +20,7 @@ curl -L https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-
 unzip zash.zip && mv dist/* . && rm -rf dist zash.zip
 ```
 And in your Mihomo config.yaml:
-```
+```yaml
 external-controller: 127.0.0.1:9090
 external-ui: /Users/YOUR-USERNAME/.config/mihomo/ui
 ```
@@ -36,7 +36,7 @@ Everything onwards is meant to go in `~/.config/mihomo/config.yaml`.
 
 ### 1. Set up rule providers (these are fully functional rulesets from blackmatrix7 - no alterations needed)
 
-```
+```yaml
 rule-providers:
   Apple:
     type: http
@@ -55,7 +55,7 @@ rule-providers:
     format: yaml
 ```
 Then specify rules:
-```
+```yaml
 - DOMAIN,raw.githubusercontent.com,DIRECT
 - RULE-SET,LAN,DIRECT
 - RULE-SET,Apple,DIRECT
@@ -63,7 +63,7 @@ Then specify rules:
 
 ### 2. Add a DNS block
 
-```
+```yaml
 dns:
   enable: true
   respect-rules: false
@@ -90,7 +90,7 @@ You can replace Aliyun with any other DNS or set up a fallback if you want to - 
 
 ### 3. Add a TUN block
 
-```
+```yaml
 tun:
   enable: true
   stack: system
