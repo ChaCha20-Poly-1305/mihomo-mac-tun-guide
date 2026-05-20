@@ -2,7 +2,7 @@
 
 本指南介绍如何在 macOS 上配置 Mihomo 的 TUN 模式和 DNS 解析器，以防止 DNS 泄漏，并让 Apple 服务走直连（DIRECT）规则，从而避免相关功能异常。
 
-该配置将**在系统范围内拦截所有 DNS 请求（无任何例外）**，并使用你提供的 DNS 服务器来解析 DIRECT 规则匹配到的域名。其余所有流量都会交由代理服务器处理。此配置同样适用于命令行工具（如 Homebrew、SSH）以及 Wine，无需额外设置。
+该配置将**在系统范围内拦截所有 DNS 请求**, 并使用你提供的 DNS 服务器来解析 DIRECT 规则匹配到的域名。唯一的例外是某些系统服务，例如 `mDNSResponder`，它们可能会使用由 Akamai 提供的加密 DNS。其余所有流量都会交由代理服务器处理。此配置同样适用于命令行工具（如 Homebrew、SSH）以及 Wine，无需额外设置。
 
 推荐通过 [Homebrew](https://brew.sh) 来安装和管理 Mihomo，并使用其默认配置目录。如果你尚未安装 Mihomo（前提是 Homebrew 已可正常工作）：
 
