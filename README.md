@@ -1,10 +1,12 @@
 # macOS Mihomo core DNS/TUN tutorial
 
+[中文](https://github.com/ChaCha20-Poly-1305/mihomo-mac-tun-guide/blob/main/READMEcn.md)
+
 This guide shows how to configure Mihomo's TUN mode and DNS resolver in macOS to prevent leaks and route Apple services directly, avoiding breakage.
 
-It will intercept all DNS system-wide (only exceptions will be some system services using Akamai encrypted DNS, such as mDNSResponder) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
+It will intercept all DNS system-wide and resolve DIRECT rules through your provided nameservers. Only exceptions will be certain system services such as `mDNSResponder` using encrypted DNS provided by Akamai. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
 
-The recommended way to manage Mihomo is via Homebrew and its default config folder. In case you don't have it installed yet (requires a working Homebrew installation):
+The recommended way to manage Mihomo is via [Homebrew](https://brew.sh) and its default config folder. In case you don't have it installed yet (requires a working Homebrew installation):
 ```
 brew install mihomo
 mkdir ~/.config/mihomo
@@ -13,13 +15,13 @@ touch ~/.config/mihomo/config.yaml
 
 ## Notes
 
-1. It's **not recommended to use GUI clients with this setup**, because they tend to override Mihomo's DNS/TUN blocks and conflicts may occur. The setup is intended for using Mihomo core as-is, or with Zashboard webUI that you can host this way:
+1. It's **not recommended to use GUI clients with this setup**, because they tend to override Mihomo's DNS/TUN blocks and conflicts may occur. The setup is intended for using Mihomo core as-is, but you can also deploy [Zashboard](https://github.com/Zephyruso/zashboard) in case you want a readable web UI:
 ```
 mkdir ~/.config/mihomo/ui && cd ~/.config/mihomo/ui
 curl -L https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-fonts.zip -o zash.zip
 unzip zash.zip && mv dist/* . && rm -rf dist zash.zip
 ```
-And in your Mihomo config.yaml:
+And in your Mihomo `config.yaml`:
 ```yaml
 external-controller: 127.0.0.1:9090
 external-ui: /Users/YOUR-USERNAME/.config/mihomo/ui
@@ -34,7 +36,7 @@ Everything onwards is meant to go in `~/.config/mihomo/config.yaml`.
 
 ## Guide
 
-### 1. Set up rule providers (these are fully functional rulesets from blackmatrix7 - no alterations needed)
+### 1. Set up rule providers (these are fully functional rulesets from [blackmatrix7's iOS rule script repo](https://github.com/blackmatrix7/ios_rule_script) - no alterations needed)
 
 ```yaml
 rule-providers:
@@ -96,7 +98,6 @@ tun:
   stack: system
   dns-hijack:
     - any:53
-    - tcp://any:53
   auto-route: true
   auto-detect-interface: true
   strict-route: true
@@ -117,4 +118,4 @@ sudo mihomo
 ```
 If you **don't** set system DNS to 127.0.0.1, two things may occur: all queries will go through local DNS unconditionally (if it's obtained with DHCP), or some queries will bypass Mihomo (if you already have different DNS specified there). If you don't run Mihomo as root, TUN mode will not work properly.
 
-You can write a bash script with `networksetup` commands (or ask an AI to do it for you) to handle it automatically.
+You can write a bash script with `networksetup` commands or use my [CLI wrapper](https://github.com/ChaCha20-Poly-1305/mihomo-ctl-mac) to handle it in a cleaner way.
