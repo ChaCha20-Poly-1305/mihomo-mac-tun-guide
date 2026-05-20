@@ -5,7 +5,18 @@ This guide shows how to configure Mihomo's TUN mode and DNS resolver in macOS to
 It will intercept all DNS system-wide (no exceptions) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
 
 ## Notes
-1. This assumes a bare-bones Mihomo setup, running the core directly - no GUI clients in the middle. It's **not recommended to use clients with this setup**, because they tend to override Mihomo's DNS/TUN blocks and conflicts may occur.
+
+1. It's **not recommended to use GUI clients with this setup**, because they tend to override Mihomo's DNS/TUN blocks and conflicts may occur. The setup is intended for using Mihomo core as-is, or with Zashboard webUI that you can host this way:
+```
+mkdir ~/.config/mihomo/ui && cd ~/.config/mihomo/ui
+curl -L https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-fonts.zip -o zash.zip
+unzip zash.zip && mv dist/* . && rm -rf dist zash.zip
+```
+And in your Mihomo config.yaml:
+```
+external-controller: 127.0.0.1:9090
+external-ui: /Users/YOUR-USERNAME/.config/mihomo/ui
+```
 
 2. **Your server must have its own DNS configured** - this setup relies on remote resolution.
 
