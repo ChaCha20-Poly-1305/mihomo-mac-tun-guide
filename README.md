@@ -4,8 +4,11 @@ This guide shows how to configure Mihomo's TUN mode and DNS resolver in macOS to
 
 It will intercept all DNS system-wide (no exceptions) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
 
-The recommended way to manage Mihomo is via Homebrew (`brew install mihomo`) and keep the default config folder. Create it in case it doesn't exist yet:
-`mkdir ~/.config/mihomo`
+The recommended way to manage Mihomo is via Homebrew and its default config folder. In case you don't have it installed yet (requires a working Homebrew installation):
+```
+brew install mihomo
+mkdir ~/.config/mihomo
+```
 
 ## Notes
 
@@ -106,6 +109,10 @@ tun:
 ### 4. Start Mihomo
 This is where the magic happens. 
 
-You need to **set your system DNS to 127.0.0.1** (System Settings -> Network -> Your active network interface -> Details -> DNS) and **run Mihomo as root**. If you **don't** set system DNS to 127.0.0.1, two things may occur: all queries will go through local DNS unconditionally (if it's obtained with DHCP), or some queries will bypass Mihomo (if you already have different DNS specified there). If you don't run Mihomo as root, TUN mode will not work properly.
+You need to **set your system DNS to 127.0.0.1** (System Settings -> Network -> Your active network interface -> Details -> DNS) and **run Mihomo as root**:
+```
+sudo mihomo
+```
+If you **don't** set system DNS to 127.0.0.1, two things may occur: all queries will go through local DNS unconditionally (if it's obtained with DHCP), or some queries will bypass Mihomo (if you already have different DNS specified there). If you don't run Mihomo as root, TUN mode will not work properly.
 
 You can write a bash script with `networksetup` commands (or ask an AI to do it for you) to handle it automatically.
