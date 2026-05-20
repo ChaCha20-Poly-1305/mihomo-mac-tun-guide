@@ -4,7 +4,8 @@ This guide shows how to configure Mihomo's TUN mode and DNS resolver in macOS to
 
 It will intercept all DNS system-wide (no exceptions) and resolve DIRECT rules through your provided nameservers. Everything else will be handled by the proxy server. It will also apply to CLI tools (Homebrew, SSH) and Wine - no extra setup needed.
 
-The recommended way to manage Mihomo is to install it via Homebrew (`brew install mihomo`) and keep the default config folder (~/.config/mihomo)
+The recommended way to manage Mihomo is via Homebrew (`brew install mihomo`) and keep the default config folder. Create it in case it doesn't exist yet:
+`mkdir ~/.config/mihomo`
 
 ## Notes
 
