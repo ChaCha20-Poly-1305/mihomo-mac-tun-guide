@@ -22,6 +22,8 @@ external-ui: /Users/YOUR-USERNAME/.config/mihomo/ui
 
 3. **This is only a routing template. Proxy servers must be provided by the user.**
 
+Everything onwards is meant to go in config.yaml in your Mihomo config folder (it's recommended to keep the default at ~/.config/mihomo)
+
 ## Guide
 
 ### 1. Set up rule providers (these are fully functional rulesets from blackmatrix7 - no alterations needed)
