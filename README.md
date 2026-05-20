@@ -8,6 +8,7 @@ The recommended way to manage Mihomo is via Homebrew and its default config fold
 ```
 brew install mihomo
 mkdir ~/.config/mihomo
+touch ~/.config/mihomo/config.yaml
 ```
 
 ## Notes
@@ -23,12 +24,13 @@ And in your Mihomo config.yaml:
 external-controller: 127.0.0.1:9090
 external-ui: /Users/YOUR-USERNAME/.config/mihomo/ui
 ```
+Once you set up and run Mihomo, you'll be able to access Zashboard from the browser at `http://127.0.0.1:9090/ui`.
 
 2. **Your server must have its own DNS configured** - this setup relies on remote resolution.
 
-3. **This is only a routing template. Proxy servers must be provided by the user.**
+3. **This is only a routing template. Proxy servers must be provided by the user.** Please refer to [Mihomo wiki](https://wiki.metacubex.one/en/) for additional info.
 
-Everything onwards is meant to go in config.yaml in your Mihomo config folder.
+Everything onwards is meant to go in `~/.config/mihomo/config.yaml`.
 
 ## Guide
 
